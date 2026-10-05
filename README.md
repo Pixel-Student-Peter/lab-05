@@ -2,8 +2,8 @@
 
 ## Student Details
 
-- **Full Name:** `<Enter name>`
-- **CCID:** `<Enter ccid>`
+- **Full Name:** Peter Van Bussel
+- **CCID:** vanbusse
 
 ## References and Resources
 
