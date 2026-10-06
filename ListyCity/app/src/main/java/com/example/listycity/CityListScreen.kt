@@ -31,6 +31,7 @@ import com.example.listycity.ui.theme.ListyCityTheme
 fun CityListScreen(
     cities: List<City>,
     onAddCity: (City) -> Unit,
+    onDeleteCity: (City) -> Unit,
     onUpdateCity: (City, City) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -128,31 +129,42 @@ fun CityListScreen(
 
                 Spacer(modifier = Modifier.width(8.dp))
 
-                Button(
-                    modifier = Modifier.padding(vertical = 12.dp),
-                    onClick = {
-                        val cityToUpdate = selectedCity
-                        if (
-                            cityToUpdate != null &&
-                            editedCityName.isNotBlank() &&
-                            editedProvinceName.isNotBlank()
-                        ) {
-                            onUpdateCity(
-                                cityToUpdate,
-                                City(
-                                    name = editedCityName,
-                                    province = editedProvinceName
+                Column(){
+                    Button(
+                        modifier = Modifier.padding(vertical = 12.dp),
+                        onClick = {
+                            val cityToUpdate = selectedCity
+                            if (
+                                cityToUpdate != null &&
+                                editedCityName.isNotBlank() &&
+                                editedProvinceName.isNotBlank()
+                            ) {
+                                onUpdateCity(
+                                    cityToUpdate,
+                                    City(
+                                        name = editedCityName,
+                                        province = editedProvinceName
+                                    )
                                 )
-                            )
 
-                            selectedCity = null
-                            editedCityName = ""
-                            editedProvinceName = ""
+                                selectedCity = null
+                                editedCityName = ""
+                                editedProvinceName = ""
+                            }
                         }
+                    ) {
+                        Text("UPDATE CITY")
                     }
-                ) {
-                    Text("UPDATE CITY")
+                    Button(
+                        onClick = {
+                            onDeleteCity(selectedCity!!)
+                            selectedCity = null
+                        }
+                    ) {
+                        Text("Delete City")
+                    }
                 }
+
             }
         }
         LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -213,6 +225,7 @@ fun CityListScreenPreview() {
                 City("Calgary", "AB")
             ),
             onAddCity = {},
+            onDeleteCity = {},
             onUpdateCity = { _, _ -> }
         )
     }
